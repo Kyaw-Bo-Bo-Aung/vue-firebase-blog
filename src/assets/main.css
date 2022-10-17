@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.btn {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    font-size: 1rem;
+    transition-duration: 0.4s;
+}
+
+.btn-submit {
+    background-color: #41B883;
+}
+.btn-submit:hover {
+    background-color: #2c7856;
+    color: #fff;
+}
+.btn-back {
+    background-color: gray;
+}
+.btn-back:hover {
+    background-color: rgb(65, 65, 65);
+    color: #fff;
+}
+.btn-edit {
+    background-color: #ffe502;
+}
+.btn-edit:hover {
+    background-color: gold;
+}
+.btn-delete {
+    background-color: #f02e65;
+    color: #fff;
+}
+.btn-delete:hover {
+    background-color: rgb(158, 8, 38);
+}
