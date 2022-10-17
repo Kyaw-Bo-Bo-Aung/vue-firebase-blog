@@ -1,6 +1,5 @@
 <template>
     <div class="post-list-wrapper">
-        <h2>All Post</h2>
         <div>
             <Post @delete="deleteOnePost" v-for="post in post_list" :key="post.id" :post="post" />
         </div>
@@ -21,9 +20,5 @@ const deleteOnePost = id => {
     .post-list-wrapper {
         max-width: 800px;
         margin: auto;
-    }
-    .post-list-wrapper h2 {
-        margin-bottom: 20px;
-        font-size: 1.8rem;
     }
 </style>

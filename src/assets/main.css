@@ -45,3 +45,9 @@ a {
 .btn-delete:hover {
     background-color: rgb(158, 8, 38);
 }
+.p-relative {
+    position: relative;
+}
+.p-absolute {
+    position: absolute;
+}

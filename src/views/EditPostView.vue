@@ -1,7 +1,8 @@
 <template>
     <div class="post-list-wrapper">
-        <h2>Edit Post</h2>
-        <div>
+        <h2 class="page-header">Edit Post</h2>
+        <Spinner v-if="isLoading" />
+        <div v-if="!isLoading">
             <form action="">
                 <div class="form-group">
                     <label class="form-label" for="title">Title</label>
@@ -19,7 +20,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-submit" @click.prevent="updatePost">Update</button>
+                    <button class="btn btn-submit p-relative" @click.prevent="updatePost">
+                        Update
+                        <Spinner v-if="isSubmiting" class="btn-spinner loading" />
+                    </button>
                     <button class="btn btn-back" @click.prevent="redirectBack">Back</button>
                 </div>
             </form>
@@ -33,8 +37,11 @@ import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 import { db } from "../firebase/config";
 import { useRouteAction } from "@/composables/routeAction.js";
+import Spinner from "../components/Spinner.vue";
 
     const router = useRouter();
+    const isLoading = ref(false);
+    const isSubmiting = ref(false);
     const props = defineProps(['id']);
     const postHandler = ref(null);
     const title = ref('');
@@ -44,6 +51,7 @@ import { useRouteAction } from "@/composables/routeAction.js";
     const { redirectBack, redirectHome, redirectErrorPage } = useRouteAction();
 
     const getPost = async () => {
+        isLoading.value = true;
         const docRef = doc(db, "posts", props.id);
         const result = await getDoc(docRef);
         postHandler.value =  {...result.data()};
@@ -53,6 +61,7 @@ import { useRouteAction } from "@/composables/routeAction.js";
         title.value = postHandler.value.title;
         body.value = postHandler.value.body;
         tags.value = postHandler.value.tags;
+        isLoading.value = false;
     }
     getPost();
     const pushTags = () => {
@@ -63,11 +72,13 @@ import { useRouteAction } from "@/composables/routeAction.js";
         tags.value = tags.value.filter(t => t != tag);
     }
     const updatePost = async () => {
+        isSubmiting.value = true;
         const updatedPost = await setDoc(doc(db, 'posts', props.id), {
             title: title.value,
             body: body.value,
             tags: tags.value
         });
+        isSubmiting.value = false;
         redirectHome();
     }
 </script>

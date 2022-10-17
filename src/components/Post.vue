@@ -6,7 +6,10 @@
                 <span class="post-edit-btn btn btn-edit">
                     <RouterLink class="btn btn-edit" :to="{ name: 'edit-post', params: post }">Edit</RouterLink>
                 </span>
-                <span class="post-delete-btn btn btn-delete" @click="deletePost(post.id)">delete</span>
+                <span class="post-delete-btn btn btn-delete p-relative" @click="deletePost(post.id)">
+                    delete
+                    <Spinner v-if="isLoading" class="btn-spinner loading" />
+                </span>
             </div>
         </div>
         <div class="post-body">{{ post.body }}</div>
@@ -18,14 +21,19 @@
 
 <script setup>
 import { deleteDoc, doc } from '@firebase/firestore';
+import { ref } from '@vue/reactivity';
 import { db } from '../firebase/config';
+import Spinner from './Spinner.vue';
 
 const props = defineProps(['post']);
 const emit = defineEmits(['delete']);
+const isLoading = ref(false);
 const deletePost = async (id) => {
+    isLoading.value = true;
     const docRef = doc(db, 'posts', id);
     await deleteDoc(docRef);
     emit('delete', id);
+    isLoading.value = false;
 }
 </script>
 
@@ -85,5 +93,8 @@ const deletePost = async (id) => {
     background: #fff;
     -webkit-box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
     box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
+    }
+    .btn-delete .loading {
+        background: rgba(240, 46, 101, 1);
     }
 </style>
