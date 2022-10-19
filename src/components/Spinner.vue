@@ -7,6 +7,7 @@
 <style>
 .spinner-handler {
   text-align: center;
+  width: 100%;
 }
 .loading-spinner {
   height: 30px;

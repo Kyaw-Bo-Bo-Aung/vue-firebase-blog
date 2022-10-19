@@ -61,6 +61,7 @@ const deletePost = async (id) => {
         margin-left: 13px;
     }
     .post-tag-wrapper span {
+        white-space: nowrap;
         margin-right: 20px;
         background-color: #34495E;
         color: #fff;

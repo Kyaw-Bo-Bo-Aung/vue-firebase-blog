@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import CreatePostView from '../views/CreatePostView.vue'
 import EditPostView from '../views/EditPostView.vue'
 import Error404View from '../views/Error404View.vue'
+import FilterPostView from '../views/FilterPostView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
       name: 'edit-post',
       component: EditPostView,
       props: true
+    },
+    {
+      path: '/post',
+      name: 'filter-post',
+      component: FilterPostView
     },
     {
       path: '/not-found',
